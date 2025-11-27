@@ -98,10 +98,10 @@ angie: the configuration file /etc/angie/angie.conf syntax is ok
 angie: configuration file /etc/angie/angie.conf test is successful
 ```
 #Переношу дефолтный конфиг nginx в http.d
+```console
 root@angie-start:/etc/angie/modules# less /etc/nginx/sites-available/default
 root@angie-start:/etc/angie/modules# cp /etc/nginx/sites-available/default /etc/angie/http.d/
-
-ot@angie-start:/etc/angie/http.d# ll
+rot@angie-start:/etc/angie/http.d# ll
 total 16
 drwxr-xr-x 2 root root 4096 Nov 26 18:27 ./
 drwxr-xr-x 4 root root 4096 Nov 26 18:21 ../
@@ -115,7 +115,6 @@ root@angie-start:/etc/angie/http.d# ls -la
 -rw-r--r-- 1 root root 1412 Nov 26 18:37 default.conf
 root@angie-start:/etc/angie/http.d# rm default.bak defaul
 root@angie-start:/etc/angie/http.d# diff /etc/nginx/uwsgi_params ../uwsgi_params
-root@angie-start:/etc/angie/http.d#
 root@angie-start:/etc/angie/http.d#
 root@angie-start:~$ diff /etc/nginx/fastcgi.conf /etc/angie/fastcgi.conf
 17c17
@@ -133,7 +132,6 @@ drwxr-xr-x 5 root root 4096 Nov 26 18:55 ../
 -rw-r--r-- 1 root root  217 Nov 26 18:55 snakeoil.conf
 root@angie-start:/etc/angie# rm /etc/angie/snippets/snakeoil.conf
 ```
-
 #У меня возникла другая ошибка при тестировании конфигурации:
 ```console
 root@angie-start:/etc/angie# angie -t
