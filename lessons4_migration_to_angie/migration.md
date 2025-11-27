@@ -85,7 +85,7 @@ nginx.conf:    brotli_comp_level	5;
 nginx.conf:    brotli_types		text/plain text/css text/xml application/javascript application/json image/x-icon image/svg+xml;
 root@angie-start:/etc/nginx# vim nginx.conf +59
 ```
-#После этого удалось прочитать конфигурацию командой nginx -T с полным выводом на экран инклюдов. Далее устанавливаю модуль в angie и переношу данные из nginx.conf в angie.conf. Подключаю brotli, запускаю тест:
+#После этого удалось прочитать конфигурацию командой nginx -T с полным выводом на экран инклюдов. Далее устанавливаю модуль в angie (apt install angie-module-brotli) и переношу данные из nginx.conf в angie.conf. Подключаю brotli, запускаю тест:
 ```console
 root@angie-start:/etc/nginx# apt search angie-module-brotli
 Sorting... Done
