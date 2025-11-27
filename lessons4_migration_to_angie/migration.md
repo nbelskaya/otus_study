@@ -72,8 +72,8 @@ root@angie-start:/etc/angie# angie -V
 Angie version: Angie/1.10.3
 nginx version: nginx/1.27.5
 ```
-# При попытке посмотреть конфигурацию c подставленными инклюдами получила ошибку. Как справить - установить Brotli‑модуль/закоментировать. 
-# Для упрощения комментирую. Поскольку мы будем настраивать angie, а не nginx:
+#При попытке посмотреть конфигурацию c подставленными инклюдами получила ошибку. Как справить - установить Brotli‑модуль/закоментировать. 
+#Для упрощения комментирую. Поскольку мы будем настраивать angie, а не nginx:
 ```console
 root@angie-start:~# nginx -T
 2025/11/26 17:18:14 [emerg] 6323#6323: unknown directive "brotli_static" in /etc/nginx/nginx.conf:59
@@ -85,7 +85,7 @@ nginx.conf:    brotli_comp_level	5;
 nginx.conf:    brotli_types		text/plain text/css text/xml application/javascript application/json image/x-icon image/svg+xml;
 root@angie-start:/etc/nginx# vim nginx.conf +59
 ```
-# После этого удалось прочитать конфигурацию командой nginx -T с полным выводом на экран инклюдов. Далее устанавливаю модуль в angie и переношу данные из nginx.conf в angie.conf. Подключаю brotli, запускаю тест:
+#После этого удалось прочитать конфигурацию командой nginx -T с полным выводом на экран инклюдов. Далее устанавливаю модуль в angie и переношу данные из nginx.conf в angie.conf. Подключаю brotli, запускаю тест:
 ```console
 root@angie-start:/etc/nginx# apt search angie-module-brotli
 Sorting... Done
@@ -97,7 +97,7 @@ root@angie-start:/etc/angie/modules# angie -t
 angie: the configuration file /etc/angie/angie.conf syntax is ok
 angie: configuration file /etc/angie/angie.conf test is successful
 ```
-# Переношу дефолтный конфиг nginx в http.d
+#Переношу дефолтный конфиг nginx в http.d
 root@angie-start:/etc/angie/modules# less /etc/nginx/sites-available/default
 root@angie-start:/etc/angie/modules# cp /etc/nginx/sites-available/default /etc/angie/http.d/
 
@@ -134,7 +134,7 @@ drwxr-xr-x 5 root root 4096 Nov 26 18:55 ../
 root@angie-start:/etc/angie# rm /etc/angie/snippets/snakeoil.conf
 ```
 
-# У меня возникла другая ошибка при тестировании конфигурации:
+#У меня возникла другая ошибка при тестировании конфигурации:
 ```console
 root@angie-start:/etc/angie# angie -t
 angie: [emerg] "try_files" directive is duplicate in /etc/nginx/static-avif.conf:3
@@ -145,8 +145,8 @@ root@angie-start:/etc/angie# grep -r try_files .
 ./http.d/default.conf:		#try_files $uri $uri/ =404;
 ./http.d/default.conf:	try_files $uri$avif_suffix $uri$webp_suffix $uri =404;
 ```
-# Закоментировала в ./snippets/fastcgi-php.conf строку try_files $fastcgi_script_name =404; и перенесла ее в http.d/default.conf
-# При проверке angie ругался на директиву в nginx конфиге со статикой, поэтому пришлось ее там закоментировать
+#Закоментировала в ./snippets/fastcgi-php.conf строку try_files $fastcgi_script_name =404; и перенесла ее в http.d/default.conf
+#При проверке angie ругался на директиву в nginx конфиге со статикой, поэтому пришлось ее там закоментировать
 ```console
 root@angie-start:/etc/angie# angie -t
 angie: [emerg] "try_files" directive is duplicate in /etc/nginx/static-avif.conf:3
@@ -161,7 +161,7 @@ root@angie-start:/etc/angie# angie -t
 angie: the configuration file /etc/angie/angie.conf syntax is ok
 angie: configuration file /etc/angie/angie.conf test is successful
 ```
-# Ищу вхождения /nginx/ в конфигах angie и исправляю что нужно (static-avif.conf удаляю, директива try_files есть), проверяю.
+#Ищу вхождения /nginx/ в конфигах angie и исправляю что нужно (static-avif.conf удаляю, директива try_files есть), проверяю.
 ```console
 root@angie-start:~# grep -rn '/nginx/' /etc/angie/
 /etc/angie/snippets/fastcgi-php.conf:8:# see: http://trac.nginx.org/nginx/ticket/321
@@ -181,7 +181,7 @@ drwxr-xr-x 4 root root 4096 Nov 26 17:38 ..
 -rw-r--r-- 1 root root   27 Nov 21 14:58 index.html
 -rw-r--r-- 1 root root  615 Nov 26 13:42 index.nginx-debian.html
 ```
-# Пробую открыть статику, но получаю ошибку. Она связана со строкой proxy_pass http://backend; в блоке server, закоментировала, релоад, работает:
+#Пробую открыть статику, но получаю ошибку. Она связана со строкой proxy_pass http://backend; в блоке server, закоментировала, релоад, работает:
 ```console
 root@angie-start:/etc/angie# curl http://127.0.0.1/index.html
 <html>
@@ -201,4 +201,4 @@ HTTP/1.1 200 OK
 Server: Angie/1.10.3
 Date: Thu, 27 Nov 2025 10:47:05 GMT
 ```
-# Отключила автозагрузку nginx и включила angie
+#Отключила автозагрузку nginx и включила angie
