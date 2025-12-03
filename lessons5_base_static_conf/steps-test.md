@@ -13,7 +13,7 @@ drwxr-xr-x 2 angie angie  4096 Dec  3 18:07 images/
 -rw-r--r-- 1 angie angie    54 Dec  3 18:39 new-location.html
 -rw-r--r-- 1 angie angie    46 Dec  3 18:39 new-page.htm
 ```
-#Прописала сайт в hosts чтобы обращаться по server_name, проверяю работу locationl
+#Прописала сайт в hosts чтобы обращаться по server_name, проверяю работу location
 ```console
 root@angie-start:~# curl -I http://static-site.local/
 HTTP/1.1 200 OK
