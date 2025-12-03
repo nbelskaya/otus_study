@@ -12,7 +12,7 @@ drwxr-xr-x 2 angie angie  4096 Dec  3 18:07 images/
 -rwxr-xr-x 1 angie angie 14532 Dec  3 18:07 index.html*
 -rw-r--r-- 1 angie angie    54 Dec  3 18:39 new-location.html
 -rw-r--r-- 1 angie angie    46 Dec  3 18:39 new-page.htm
-
+```
 #Прописала сайт в hosts чтобы обращаться по server_name, проверяю работу locationl
 ```console
 root@angie-start:~# curl -I http://static-site.local/
@@ -176,3 +176,4 @@ root@angie-start:~# curl -v -L http://static-site.local/moved
 <
 <h1>New Location</h1><p>This is new-location.html</p>
 * Connection #0 to host static-site.local left intact
+```
