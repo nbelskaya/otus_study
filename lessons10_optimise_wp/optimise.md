@@ -1,6 +1,5 @@
-#В качестве теста нагрузила wp несколькими статьями и картинками, добавила в конфигурацию сайта сжатие, кеширование разных директорий со статикой и время жизни кеша
-#Проверяю заголовки кеширования запросом к статическому элементу на сайте, установлен самоподписной сертификат, поэтому в резульат помещаю часть ответа без рукопожатий:
-```consol
+#В качестве теста нагрузила wp несколькими статьями и картинками, добавила в конфигурацию сайта сжатие, кеширование разных директорий со статикой и время жизни кеша. Проверяю заголовки кеширования запросом к статическому элементу на сайте, установлен самоподписной сертификат, поэтому в резульат помещаю часть ответа без рукопожатий:
+```console
 curl -kv -I https://158.160.51.153/wp-content/uploads/2025/12/5.jpg
 *   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
 * using HTTP/2
@@ -44,7 +43,7 @@ vary: Accept
 < cache-control: public, max-age=31536000, immutable
 cache-control: public, max-age=31536000, immutable
 ```
-# Проверка по If-Modified-Since
+#Проверка по If-Modified-Since
 ```console
 curl -I -k -H "If-Modified-Since: Fri, 26 Dec 2025 17:30:52 GMT" https://158.160.51.153/wp-content/uploads/2025/12/5.jpg
 HTTP/2 304
@@ -58,7 +57,7 @@ cache-control: max-age=31536000
 vary: Accept
 cache-control: public, max-age=31536000, immutable
 ```
-# Проверка по If-None-Match (ETag-уникальная метка ресурса) экономия трафика и ускорение загрузки
+#Проверка по If-None-Match (ETag-уникальная метка ресурса) экономия трафика и ускорение загрузки
 ```console
 root@docker-wordpress:~# curl -I -k -H 'If-None-Match: "ead4-646de4148cc46"' https://158.160.51.153/wp-content/uploads/2025/12/5.jpg
 HTTP/2 304
@@ -123,7 +122,6 @@ content-encoding: gzip
 < x-cache-status: HIT
 x-cache-status: HIT
 ```
-#Нагрузить сайт так чтобы можно было заметно сжать и ускорить не вышло, нужно очень много контента наплодить и установить различных плагинов. Того что сделала было мало, при проверке Lighthouse (Chrome DevTools) -  отдает 99 Perfomance.
 #Для выполенения пункта кеширования конкретной страницы - включена зона прокси‑кеша proxy_cache_path /var/www/cache в angie.conf, в конфиге виртуального хоста добавлен отдельный локейшен "location = /"  с директивами proxy_cache, proxy_cache_key, proxy_cache_valid. Добавлен заголовок X-Cache-Status для мониторинга (показывает MISS/HIT/BYPASS). Настроены правила proxy_cache_use_stale и proxy_cache_background_update для устойчивости при ошибках бэкенда. Также добавлен пропуск кеша для пользователей с кукой wordpress_logged_in_ (чтобы авторизованные пользователи всегда видели свежую страницу).
 #Кеширование главной страницы
 ```console
@@ -161,7 +159,7 @@ link: <https://158.160.51.153/index.php?rest_route=/>; rel="https://api.w.org/"
 vary: Accept-Encoding
 x-cache-status: BYPASS
 ```
-# Проверяю скопление файлов кеша на диске:
+#Проверяю скопление файлов кеша на диске:
 ```console
 root@docker-wordpress:/etc/angie# ls -la /var/www/cache
 total 20
