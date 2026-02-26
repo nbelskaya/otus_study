@@ -134,7 +134,7 @@ root@angie-balancer:/etc/angie/http.d# seq 1 5 | xargs -I {} sh -c 'echo "$(date
 100     9  100     9    0     0   5960      0 --:--:-- --:--:-- --:--:--  9000
 17:52:13 -> backend3
 root@angie-balancer:/etc/angie/http.d#
-
+```
 Тестирование показало, что запросы приходят в случайной последовательности, бекенд может повторяться.
 
 ### Backup / Down
