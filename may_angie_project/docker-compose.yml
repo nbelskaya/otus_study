@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: color-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: color
+    volumes:
+      - /opt/color-db:/var/lib/postgresql/data
+    networks:
+      - color-net
+
+  backend-white:
+    image: python:3.11-slim
+    container_name: backend-white
+    volumes:
+      - ./app.py:/app/app.py
+    working_dir: /app
+    command: sh -c "pip install flask psycopg2-binary && python app.py"
+    environment:
+      BACKEND: white
+      COLOR: "#ffffff"
+      DB_HOST: postgres
+    networks:
+      - color-net
+    ports:
+      - "5001:5000"
+
+  backend-green:
+    image: python:3.11-slim
+    container_name: backend-green
+    volumes:
+      - ./app.py:/app/app.py
+    working_dir: /app
+    command: sh -c "pip install flask psycopg2-binary && python app.py"
+    environment:
+      BACKEND: green
+      COLOR: "#00ff00"
+      DB_HOST: postgres
+    networks:
+      - color-net
+    ports:
+      - "5002:5000"
+
+  backend-gold:
+    image: python:3.11-slim
+    container_name: backend-gold
+    volumes:
+      - ./app.py:/app/app.py
+    working_dir: /app
+    command: sh -c "pip install flask psycopg2-binary && python app.py"
+    environment:
+      BACKEND: gold
+      COLOR: "#ffd700"
+      DB_HOST: postgres
+    networks:
+      - color-net
+    ports:
+      - "5003:5000"
+
+networks:
+  color-net:
+    driver: bridge
+
