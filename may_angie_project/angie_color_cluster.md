@@ -297,12 +297,15 @@ Percentage of the requests served within a certain time (ms)
  100%    248 (longest request)
 ```
 Смотрю на строки:
+```console
 Requests per second:    1801.83 [#/sec] (mean)   - высокая средняя RPS
+
 Failed requests:        985
 Non-2xx responses:      977                      -  большинство запросов не получили ожидаемое тело/длину
+
 Time per request:       55.499 [ms] (mean)       - средняя задержка удовлетворительна, но большое число failed,
 что  говорит о проблеме с длиной ответа (Length: 985) — часто ab считает ответ «неправильным», если длина тела отличается от ожидаемой (Document Length)
-
+```
 Запустила агрузку wrk так:
 wrk -t2 -c40 -d60s -H 'User-Agent: Mozilla/5.0' 'https://158.160.79.161/'
 
