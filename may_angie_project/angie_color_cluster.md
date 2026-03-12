@@ -158,8 +158,7 @@ Connection: keep-alive
 #HttpOnly_158.160.79.161	FALSE	/	TRUE	1773342331	srv_id	gold
 ```
 Кука успешно установлена - Set-Cookie: srv_id=gold, указан домен хоста - ip и заголовки безопасности.
-В ответе от бекенда "<h1>Backend: gold</h1>"
-
+В ответе от бекенда "Backend: gold"
 Проверяю, что cookie сохраняется и закрепляет пользователя. Второй запрос, с отправкой полученной cookie:
 ```console
  $ curl -k -v -A "Mozilla/5.0" -b cookies.txt "https://158.160.79.161/"
