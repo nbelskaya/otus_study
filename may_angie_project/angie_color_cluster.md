@@ -220,8 +220,6 @@ curl: (52) Empty reply from server
 
 5. Простой тест показывающий работу дефолтного балансировщика round-robin. Несколько последовательных запросов с выводом тела из HTML:
 ```console
-$ seq 1 5 | xargs -I{} sh -c 'echo "$(date +"%T") -> $(curl -s -k -A "Mozilla/5.0" "https://158.160.79.161/")"; sleep 1'
-```console
  $ seq 1 5 | xargs -I{} sh -c 'echo "$(date +"%T") -> $(curl -s -k -A "Mozilla/5.0" "https://158.160.79.161/" | sed -n "s/.*<h1>Backend: \([^<]*\)<\/h1>.*/\1/p")"; sleep 1'
 21:41:20 -> gold
 21:41:21 -> white
